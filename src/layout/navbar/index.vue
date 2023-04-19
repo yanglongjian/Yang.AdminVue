@@ -10,7 +10,7 @@
       </a-space>
       <Breadcrumb
         v-if="appStore.device !== 'mobile'"
-        :items="['仪表盘', '分析页']"
+        :items="breadList"
       />
     </div>
     <ul class="right-side">
@@ -136,7 +136,7 @@
               </a-space>
             </a-doption>
             <a-doption>
-              <a-space @click="$router.push({ name: 'Setting' })">
+              <a-space @click="handleChangePwdOpen">
                 <icon-settings />
                 <span> 密码修改 </span>
               </a-space>
@@ -151,15 +151,55 @@
         </a-dropdown>
       </li>
     </ul>
+
+
+  <!--修改密码 begin-->
+  <a-modal
+      v-model:visible="state.changePwdVisible"
+      :top="20"
+      :title="'修改密码'"
+      :footer="false"
+      :align-center="false"
+      draggable
+      :mask-closable="false"
+      @cancel="state.changePwdVisible = false"
+    >
+      <y-form ref="changePwdFormRef" :schemas="changePwdSchemas" :rules="changePwdRules">
+        <template #y-form-buttons="{ values }">
+          <a-button
+            type="primary"
+            :loading="state.loading"
+            @click="handleChangePwdSubmit(values)"
+          >
+            <template #icon>
+              <icon-check />
+            </template>
+            提交
+          </a-button>
+          &nbsp;
+          <a-button @click="state.changePwdVisible = false">
+            <template #icon>
+              <icon-close />
+            </template>
+            关闭
+          </a-button>
+        </template>
+      </y-form>
+    </a-modal>
+    <!--重置密码 end-->
+
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, inject } from "vue";
+import { computed, ref, inject, Ref, watch, reactive, nextTick } from "vue";
 import { Message } from "@arco-design/web-vue";
 import Logo from "@/layout/logo/index.vue";
 import { useDark, useToggle, useFullscreen } from "@vueuse/core";
 import { useAppStore, useUserStore } from "@/store";
+import { useRoute, useRouter, RouteLocationMatched } from "vue-router";
+import {changePassword} from '@/api/admin/identity';
+
 import { LOCALE_OPTIONS } from "@/locale";
 import useLocale from "@/hooks/locale";
 import useUser from "@/hooks/user";
@@ -226,6 +266,88 @@ const setDropDownVisible = () => {
 //   Message.success(res as string);
 // };
 const toggleDrawerMenu = inject("toggleDrawerMenu") as () => void;
+
+
+
+
+const breadList: Ref<any[]> = ref([]);
+const route = useRoute();
+const getBreadcrumb = (): void => {
+  let matched = route.matched.filter(item => item.meta && item.meta.locale);
+  breadList.value = matched.filter(
+    item => item.meta && item.meta.locale
+  ).map((item) => {
+        return item.meta.locale
+      });;
+  //console.log(breadList); 
+};
+getBreadcrumb();
+watch(
+  () => route.path,
+  () => getBreadcrumb()
+);
+
+// #region 修改密码
+const state = reactive({
+  loading: false,
+  changePwdVisible: false,
+});
+const changePwdFormRef = ref();
+const changePwdSchemas = computed(() => [
+  {
+    title: "原密码",
+    dataIndex: "oldPassword",
+    type: "password",
+  },
+  {
+    title: "新密码",
+    dataIndex: "newPassword",
+    type: "password",
+  },
+  {
+    title: "确认密码",
+    dataIndex: "confirmNewPassword",
+    type: "password",
+  },
+]);
+const changePwdRules = ref<any>({
+  oldPassword: [
+    { required: true, message: "请输入原密码" },
+    { minLength: 6, message: "密码长度不能小于6位" },
+  ],
+  newPassword: [
+    { required: true, message: "请输入新密码" },
+    { minLength: 6, message: "密码长度不能小于6位" },
+  ],
+  confirmNewPassword: [
+    { required: true, message: "请输入确认密码" },
+    { minLength: 6, message: "密码长度不能小于6位" },
+  ],
+});
+
+const handleChangePwdOpen = () => {
+  nextTick(() => {
+    state.changePwdVisible = true;
+    changePwdFormRef.value.setData({
+      oldPwssword:"",
+      newPassword: "",
+      confirmNewPassword: "",
+    });
+  });
+};
+
+const handleChangePwdSubmit = async (values: any) => {
+  state.loading=true;
+  try {
+    const { data } = await changePassword(values);
+    Message.success(data);
+  } finally {
+    state.changePwdVisible = false;
+    state.loading=false;
+  }
+};
+// endregion
+
 </script>
 
 <style scoped lang="less">

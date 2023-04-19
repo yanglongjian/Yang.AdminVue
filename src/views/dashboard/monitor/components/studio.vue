@@ -1,5 +1,5 @@
 <template>
-  <a-card class="general-card" :title="$t('monitor.title.studioPreview')">
+  <a-card class="general-card" :title="'直播预览'">
     <template #extra>
       <icon-more />
     </template>
@@ -15,12 +15,12 @@
               <img :src="userInfo.avatar" />
             </a-avatar>
             <a-typography-text>
-              {{ userInfo.nickName }} {{ $t("monitor.studioPreview.studio") }}
+              {{ userInfo.nickName }} {{ '直播间' }}
             </a-typography-text>
           </a-space>
         </div>
         <a-typography-text type="secondary">
-          36,000 {{ $t("monitor.studioPreview.watching") }}
+          36,000 {{ '在看' }}
         </a-typography-text>
       </div>
     </div>

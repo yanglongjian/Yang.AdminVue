@@ -107,5 +107,10 @@ setupMock({
     Mock.mock(`/api/${module}/logout`, () => {
       return successResponseWrap(null);
     });
+    //修改密码
+    Mock.mock(`/api/${module}/changePassword`, () => {
+      return successResponseWrap('修改成功');
+    });
+    
   },
 });

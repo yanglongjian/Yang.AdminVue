@@ -6,10 +6,10 @@
       :body-style="{
         paddingTop: '20px',
       }"
-      :title="$t('workplace.contentData')"
+      :title="'内容数据'"
     >
       <template #extra>
-        <a-link>{{ $t('workplace.viewMore') }}</a-link>
+        <a-link>查看更多</a-link>
       </template>
       <Chart height="289px" :option="chartOption" />
     </a-card>
@@ -20,12 +20,12 @@
   import { ref } from 'vue';
   import { graphic } from 'echarts';
   import useLoading from '@/hooks/loading';
-  import { queryContentData, ContentDataRecord } from '@/api/dashboard';
+  // import { queryContentData, ContentDataRecord } from '@/api/dashboard';
   import useChartOption from '@/hooks/chart-option';
-  import { ToolTipFormatterParams } from '@/types/echarts';
-  import { AnyObject } from '@/types/global';
+  // import { ToolTipFormatterParams } from '@/types/echarts';
+  // import { AnyObject } from '@/types/global';
 
-  function graphicFactory(side: AnyObject) {
+  function graphicFactory(side: any) {
     return {
       type: 'text',
       bottom: '8',
@@ -113,7 +113,7 @@
       tooltip: {
         trigger: 'axis',
         formatter(params) {
-          const [firstElement] = params as ToolTipFormatterParams[];
+          const [firstElement] = params as any[];
           return `<div>
             <p class="tooltip-title">${firstElement.axisValueLabel}</p>
             <div class="content-panel"><span>总内容量</span><span class="tooltip-value">${(
@@ -175,24 +175,24 @@
     };
   });
   const fetchData = async () => {
-    setLoading(true);
-    try {
-      const { data: chartData } = await queryContentData();
-      chartData.forEach((el: ContentDataRecord, idx: number) => {
-        xAxis.value.push(el.x);
-        chartsData.value.push(el.y);
-        if (idx === 0) {
-          graphicElements.value[0].style.text = el.x;
-        }
-        if (idx === chartData.length - 1) {
-          graphicElements.value[1].style.text = el.x;
-        }
-      });
-    } catch (err) {
-      // you can report use errorHandler or other
-    } finally {
-      setLoading(false);
-    }
+    // setLoading(true);
+    // try {
+    //   const { data: chartData } = await queryContentData();
+    //   chartData.forEach((el: ContentDataRecord, idx: number) => {
+    //     xAxis.value.push(el.x);
+    //     chartsData.value.push(el.y);
+    //     if (idx === 0) {
+    //       graphicElements.value[0].style.text = el.x;
+    //     }
+    //     if (idx === chartData.length - 1) {
+    //       graphicElements.value[1].style.text = el.x;
+    //     }
+    //   });
+    // } catch (err) {
+    //   // you can report use errorHandler or other
+    // } finally {
+    //   setLoading(false);
+    // }
   };
   fetchData();
 </script>

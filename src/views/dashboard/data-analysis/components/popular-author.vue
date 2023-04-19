@@ -2,10 +2,10 @@
   <a-spin :loading="loading" style="width: 100%">
     <a-card class="general-card" :header-style="{ paddingBottom: '14px' }">
       <template #title>
-        {{ $t('dataAnalysis.popularAuthor') }}
+        {{ '热门作者榜单' }}
       </template>
       <template #extra>
-        <a-link>{{ $t('workplace.viewMore') }}</a-link>
+        <a-link>查看更多</a-link>
       </template>
       <a-table
         :data="tableData.list"
@@ -16,17 +16,17 @@
       >
         <template #columns>
           <a-table-column
-            :title="$t('dataAnalysis.popularAuthor.column.ranking')"
+            :title="'排名'"
             data-index="ranking"
           >
           </a-table-column>
           <a-table-column
-            :title="$t('dataAnalysis.popularAuthor.column.author')"
+            :title="'作者'"
             data-index="author"
           >
           </a-table-column>
           <a-table-column
-            :title="$t('dataAnalysis.popularAuthor.column.content')"
+            :title="'内容量'"
             data-index="contentCount"
             :sortable="{
               sortDirections: ['ascend', 'descend'],
@@ -34,7 +34,7 @@
           >
           </a-table-column>
           <a-table-column
-            :title="$t('dataAnalysis.popularAuthor.column.click')"
+            :title="'点击量'"
             data-index="clickCount"
             :sortable="{
               sortDirections: ['ascend', 'descend'],
