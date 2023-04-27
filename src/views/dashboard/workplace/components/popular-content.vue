@@ -74,23 +74,20 @@
 
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import useLoading from '@/hooks/loading';
-  // import { queryPopularList } from '@/api/dashboard';
+  import { read } from '@/api/dashboard/workplace';
   import type { TableData } from '@arco-design/web-vue/es/table/interface';
 
   const type = ref('text');
-  const { loading, setLoading } = useLoading();
+  const loading = ref(true);
   const renderList = ref<TableData[]>();
   const fetchData = async (contentType: string) => {
-    // try {
-    //   setLoading(true);
-    //   const { data } = await queryPopularList({ type: contentType });
-    //   renderList.value = data;
-    // } catch (err) {
-    //   // you can report use errorHandler or other
-    // } finally {
-    //   setLoading(false);
-    // }
+    try {
+      const { data } = await read({ type: contentType });
+      renderList.value = data;
+    } catch (err) {
+    } finally {
+      loading.value=false;
+    }
   };
   const typeChange = (contentType: string) => {
     fetchData(contentType);

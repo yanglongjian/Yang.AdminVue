@@ -21,7 +21,17 @@ const LIST: AppRouteRecordRaw = {
                 locale: '账号管理',
                 requiresAuth: true,
                 icon: 'icon-user',
-                roles: ['Root.Admin.User'],
+                permission:'Root.Admin.User'
+            },
+        },
+        {
+            path: 'profile',
+            name: 'profile',
+            component: () => import('@/views/admin/profile.vue'),
+            meta: {
+                locale: '用户信息',
+                requiresAuth: true,
+                hideInMenu:true,
             },
         },
         {
@@ -32,7 +42,7 @@ const LIST: AppRouteRecordRaw = {
                 locale: '角色管理',
                 requiresAuth: true,
                 icon: 'icon-user-group',
-                roles: ['Root.Admin.Role'],
+                permission:'Root.Admin.Role'
             },
         },
         {
@@ -43,31 +53,9 @@ const LIST: AppRouteRecordRaw = {
                 locale: '模块管理',
                 requiresAuth: true,
                 icon: 'icon-apps',
-                roles: ['Root.Admin.Module'],
+                permission:'Root.Admin.Module'
             },
         },
-        {
-            path: 'dict',
-            name: 'dict',
-            component: () => import('@/views/admin/dict.vue'),
-            meta: {
-                locale: '数据字典',
-                requiresAuth: true,
-                icon: 'icon-storage',
-                roles: ['Root.Admin.Dict'],
-            },
-        },
-        {
-            path: 'server',
-            name: 'server',
-            component: () => import('@/views/admin/server.vue'),
-            meta: {
-                locale: '服务器信息',
-                requiresAuth: true,
-                icon: 'icon-computer',
-                roles: ['Root.Admin.Server'],
-            },
-        }
     ],
 };
 

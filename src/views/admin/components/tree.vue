@@ -6,7 +6,7 @@
       :title="title"
       :footer="false"
       :align-center="false"
-      draggable
+      
       :mask-closable="false"
       @cancel="handleClose"
     >

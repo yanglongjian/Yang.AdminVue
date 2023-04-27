@@ -41,26 +41,7 @@ axios.interceptors.response.use(
     return res;
   },
   (error) => {
-    // if (error.response?.status == 401) {
-    //   debugger
-    //   setTimeout(() => {
-    //     const userStore = useUserStore();
-    //     userStore.logoutCallBack();
-    //     window.location.reload();
-    //   }, 50);
-    // } else {
-    //   if (error.response?.data?.errors) {
-    //     Message.error({
-    //       content: JSON.stringify(error.response?.data?.errors),
-    //       duration: 5 * 1000,
-    //     });
-    //   } else {
-    //     Message.error({
-    //       content: `Request Error:${error.response?.status} ${error.response?.statusText}`,
-    //       duration: 5 * 1000,
-    //     });
-    //   }
-    // }
+    console.log(error);
     return Promise.reject(error);
   }
 );

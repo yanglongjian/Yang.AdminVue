@@ -187,30 +187,30 @@
               />
 
               <!--image-->
-              <upload-image
+              <y-image
                 v-if="item.type == 'image'"
                 v-model="formModel[item.dataIndex]"
                 :limit="item.limit || 1"
                 :multiple="item.multiple || false"
-              ></upload-image>
+              ></y-image>
 
               <!--editor-->
-              <editor
+              <y-editor
                 v-if="item.type == 'editor'"
                 v-model="formModel[item.dataIndex]"
                 :height="400"
               >
-              </editor>
+              </y-editor>
 
               <!--table-->
-              <form-table
+              <y-sortable
                 v-if="item.type == 'table'"
                 v-model="formModel[item.dataIndex]"
                 :columns="item.columns"
                 :addTemplate="item.addTemplate"
                 @update:model-errors="tableUpdate"
               >
-              </form-table>
+              </y-sortable>
             </a-form-item>
           </a-col>
         </template>
@@ -231,9 +231,9 @@
 <script lang="ts" setup>
 import { ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
-import Editor from "@/components/editor/index.vue";
-import FormTable from "@/components/form-table/index.vue";
-import UploadImage from "@/components/upload-image/index.vue";
+import YImage from "@/components/form/y-image/index.vue";
+import YEditor from "@/components/form/y-editor/index.vue";
+import YSortable from "@/components/form/y-sortable/index.vue";
 const { t } = useI18n();
 
 //编辑表单
@@ -241,10 +241,6 @@ const formRef = ref();
 const formModel= ref<any>();
 
 const props = defineProps({
-  loading: {
-    type: Boolean,
-    default: false,
-  },
   labelCol: {
     type: String,
     default: "80px",

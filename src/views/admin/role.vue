@@ -135,7 +135,7 @@
       :title="state.isUpdate ? '编辑' : '新建'"
       :footer="false"
       :align-center="false"
-      draggable
+      
       :mask-closable="false"
       @cancel="state.visible = false"
     >

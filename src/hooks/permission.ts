@@ -4,25 +4,20 @@ import { useUserStore } from '@/store';
 export default function usePermission() {
   const userStore = useUserStore();
   return {
-    accessRouter(route: RouteLocationNormalized | RouteRecordRaw) {
-      const role=(route.meta?.roles || [])[0] || '';
+    accessRouter(route: any) {
+      const permission = route.meta?.permission || '';
+      const permissions= userStore.permissions as undefined as any;
       return (
         !route.meta?.requiresAuth ||
-        !route.meta?.roles ||
-        route.meta?.roles?.includes('*') ||
-        userStore.permissions?.includes(role)
-        //route.meta?.roles?.includes(userStore.permissions)
+        !permission ||
+        permissions.includes(permission)
       );
     },
-    findFirstPermissionRoute(_routers: any, role = 'admin') {
+    findFirstPermissionRoute(_routers: any, permission:any) {
       const cloneRouters = [..._routers];
       while (cloneRouters.length) {
         const firstElement = cloneRouters.shift();
-        if (
-          firstElement?.meta?.roles?.find((el: string[]) => {
-            return el.includes('*') || el.includes(role);
-          })
-        )
+        if (permission.includes(firstElement?.meta?.permissions))
           return { name: firstElement.name };
         if (firstElement?.children) {
           cloneRouters.push(...firstElement.children);

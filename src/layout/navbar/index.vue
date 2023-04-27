@@ -8,15 +8,17 @@
           @click="toggleDrawerMenu"
         />
       </a-space>
-      <Breadcrumb
-        v-if="appStore.device !== 'mobile'"
-        :items="breadList"
-      />
+      <Breadcrumb v-if="appStore.device !== 'mobile'" :items="breadList" />
     </div>
     <ul class="right-side">
       <li>
         <a-tooltip :content="'搜索'">
-          <a-button class="nav-btn" type="outline" :shape="'circle'">
+          <a-button
+            class="nav-btn"
+            type="outline"
+            :shape="'circle'"
+            @click="searchVisible = true"
+          >
             <template #icon>
               <icon-search />
             </template>
@@ -130,9 +132,9 @@
           </a-avatar>
           <template #content>
             <a-doption>
-              <a-space @click="$router.push({ name: 'Info' })">
+              <a-space @click="$router.push({ name: 'profile' })">
                 <icon-user />
-                <span> 用户中心 </span>
+                <span> 用户信息 </span>
               </a-space>
             </a-doption>
             <a-doption>
@@ -152,19 +154,22 @@
       </li>
     </ul>
 
-
-  <!--修改密码 begin-->
-  <a-modal
+    <!--修改密码 begin-->
+    <a-modal
       v-model:visible="state.changePwdVisible"
       :top="20"
       :title="'修改密码'"
       :footer="false"
       :align-center="false"
-      draggable
+      
       :mask-closable="false"
       @cancel="state.changePwdVisible = false"
     >
-      <y-form ref="changePwdFormRef" :schemas="changePwdSchemas" :rules="changePwdRules">
+      <y-form
+        ref="changePwdFormRef"
+        :schemas="changePwdSchemas"
+        :rules="changePwdRules"
+      >
         <template #y-form-buttons="{ values }">
           <a-button
             type="primary"
@@ -187,8 +192,35 @@
       </y-form>
     </a-modal>
     <!--重置密码 end-->
-
   </div>
+
+  <a-modal
+    v-model:visible="searchVisible"
+    :top="20"
+    :align-center="false"
+    :mask-closable="false"
+    @cancel="searchVisible = false"
+  >
+    <template #title> 搜索 </template>
+    <a-form :model="searchForm">
+      <a-input-search
+        v-model="searchForm.searchKey"
+        placeholder="请输入关键词搜索"
+        search-button
+      />
+    </a-form>
+
+    <a-empty />
+
+    <template #footer>
+      <span class="mr-14px">
+        <icon-arrow-up class="icon" />
+        &nbsp;
+        <icon-arrow-down class="icon" />
+        切换
+      </span>
+    </template>
+  </a-modal>
 </template>
 
 <script lang="ts" setup>
@@ -198,7 +230,7 @@ import Logo from "@/layout/logo/index.vue";
 import { useDark, useToggle, useFullscreen } from "@vueuse/core";
 import { useAppStore, useUserStore } from "@/store";
 import { useRoute, useRouter, RouteLocationMatched } from "vue-router";
-import {changePassword} from '@/api/admin/identity';
+import { changePassword } from "@/api/admin/identity";
 
 import { LOCALE_OPTIONS } from "@/locale";
 import useLocale from "@/hooks/locale";
@@ -267,19 +299,16 @@ const setDropDownVisible = () => {
 // };
 const toggleDrawerMenu = inject("toggleDrawerMenu") as () => void;
 
-
-
-
 const breadList: Ref<any[]> = ref([]);
 const route = useRoute();
 const getBreadcrumb = (): void => {
-  let matched = route.matched.filter(item => item.meta && item.meta.locale);
-  breadList.value = matched.filter(
-    item => item.meta && item.meta.locale
-  ).map((item) => {
-        return item.meta.locale
-      });;
-  //console.log(breadList); 
+  let matched = route.matched.filter((item) => item.meta && item.meta.locale);
+  breadList.value = matched
+    .filter((item) => item.meta && item.meta.locale)
+    .map((item) => {
+      return item.meta.locale;
+    });
+  //console.log(breadList);
 };
 getBreadcrumb();
 watch(
@@ -329,7 +358,7 @@ const handleChangePwdOpen = () => {
   nextTick(() => {
     state.changePwdVisible = true;
     changePwdFormRef.value.setData({
-      oldPwssword:"",
+      oldPwssword: "",
       newPassword: "",
       confirmNewPassword: "",
     });
@@ -337,17 +366,21 @@ const handleChangePwdOpen = () => {
 };
 
 const handleChangePwdSubmit = async (values: any) => {
-  state.loading=true;
+  state.loading = true;
   try {
     const { data } = await changePassword(values);
     Message.success(data);
   } finally {
     state.changePwdVisible = false;
-    state.loading=false;
+    state.loading = false;
   }
 };
 // endregion
 
+const searchVisible = ref(false);
+const searchForm = reactive({
+  searchKey: "",
+});
 </script>
 
 <style scoped lang="less">
@@ -403,5 +436,12 @@ const handleChangePwdSubmit = async (values: any) => {
   .arco-popover-content {
     margin-top: 0;
   }
+}
+.mr-14px {
+  font-size: 16px;
+}
+.icon {
+  box-shadow: inset 0 -2px #cdcde6, inset 0 0 1px 1px #fff,
+    0 1px 2px 1px #1e235a66;
 }
 </style>

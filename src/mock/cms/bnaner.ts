@@ -1,0 +1,36 @@
+import Mock, { Random } from 'mockjs';
+import setupMock, {
+  successResponseWrap,
+} from '../setup-mock';
+/**
+ * bnaner轮播图
+ */
+const module = 'bnaner'
+
+let data =Mock.mock({
+  "rows|3": [{
+      'id': '@id', 
+      "name": '@title',
+      "picture":Random.dataImage('200x100', 'Hello Mock.js!'),
+      "status|0-1": 0,
+      "description": '@ctitle',
+      'createdTime': '@date("yyyy-MM-dd")',
+  }],
+  total:10
+})
+setupMock({
+  setup() {
+    Mock.mock(`/api/${module}/read`, () => {
+      return successResponseWrap(data);
+    });
+    Mock.mock(`/api/${module}/create`, (params: any) => {
+      return successResponseWrap('添加成功');
+    });
+    Mock.mock(`/api/${module}/update`, (params: any) => {
+      return successResponseWrap('更新成功');
+    });
+    Mock.mock(`/api/${module}/delete`, (params: any) => {
+      return successResponseWrap('删除成功');
+    });
+  },
+});

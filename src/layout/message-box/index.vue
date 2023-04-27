@@ -26,13 +26,13 @@
 <script lang="ts" setup>
   import { ref, reactive, toRefs, computed } from 'vue';
   import { useI18n } from 'vue-i18n';
-  import {
-    queryMessageList,
-    setMessageStatus,
-    MessageRecord,
-    MessageListType,
-  } from '@/api/message';
-  import useLoading from '@/hooks/loading';
+  // import {
+  //   queryMessageList,
+  //   setMessageStatus,
+  //   MessageRecord,
+  //   MessageListType,
+  // } from '@/api/message';
+  // import useLoading from '@/hooks/loading';
   import List from './list.vue';
 
   interface TabItem {
@@ -40,12 +40,12 @@
     title: string;
     avatar?: string;
   }
-  const { loading, setLoading } = useLoading(true);
+  const loading= ref(true);
   const messageType = ref('message');
   const { t } = useI18n();
   const messageData = reactive<{
-    renderList: MessageRecord[];
-    messageList: MessageRecord[];
+    renderList: any[];
+    messageList: any[];
   }>({
     renderList: [],
     messageList: [],
@@ -66,19 +66,18 @@
     },
   ];
   async function fetchSourceData() {
-    setLoading(true);
-    try {
-      const { data } = await queryMessageList();
-      messageData.messageList = data;
-    } catch (err) {
-      // you can report use errorHandler or other
-    } finally {
-      setLoading(false);
-    }
+    // try {
+    //   const { data } = await queryMessageList();
+    //   messageData.messageList = data;
+    // } catch (err) {
+      
+    // } finally {
+    //   loading.value=false;
+    // }
   }
-  async function readMessage(data: MessageListType) {
-    const ids = data.map((item) => item.id);
-    await setMessageStatus({ ids });
+  async function readMessage(data: any) {
+    // const ids = data.map((item) => item.id);
+    // await setMessageStatus({ ids });
     fetchSourceData();
   }
   const renderList = computed(() => {
@@ -99,7 +98,7 @@
     const list = getUnreadList(type);
     return list.length ? `(${list.length})` : ``;
   };
-  const handleItemClick = (items: MessageListType) => {
+  const handleItemClick = (items: any) => {
     if (renderList.value.length) readMessage([...items]);
   };
   const emptyList = () => {

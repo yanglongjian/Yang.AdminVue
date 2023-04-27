@@ -20,46 +20,8 @@ const DASHBOARD: AppRouteRecordRaw = {
         locale: '工作台',
         requiresAuth: true,
         icon:'icon-compass',
-        roles: ['*'],
       },
-    },
-    {
-      path: 'monitor',
-      name: 'Monitor',
-      component: () => import('@/views/dashboard/monitor/index.vue'),
-      meta: {
-        locale: '实时监控',
-        requiresAuth: true,
-        hideInMenu:false,
-        icon:'icon-desktop',
-        roles: ['*'],
-      },
-    },
-    {
-      path: 'data-analysis',
-      name: 'DataAnalysis',
-      component: () => import('@/views/dashboard/data-analysis/index.vue'),
-      meta: {
-        locale: '分析页',
-        requiresAuth: true,
-        hideInMenu:false,
-        icon:'icon-computer',
-        roles: ['*'],
-      },
-    },
-    {
-      path: 'multi-data-analysis',
-      name: 'MultiDimensionDataAnalysis',
-      component: () =>
-        import('@/views/dashboard/multi-data-analysis/index.vue'),
-      meta: {
-        locale: '多维数据分析',
-        requiresAuth: true,
-        hideInMenu:false,
-        icon:'icon-bar-chart',
-        roles: ['*'],
-      },
-    },
+    }
   ],
 };
 

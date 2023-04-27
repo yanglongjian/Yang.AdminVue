@@ -9,15 +9,6 @@ export default function setupUserLoginInfoGuard(router: Router) {
     NProgress.start();
 
 
-    if (to.name != 'collect-edit') {
-      const tabBarStore = useTabBarStore();
-      const i = tabBarStore.getTabList.findIndex(item => item.name == 'collect-edit');
-      if (i > -1) {
-        var tag=tabBarStore.getTabList[i];
-        tabBarStore.deleteTag(i,tag);
-      }
-    }
-
 
     const userStore = useUserStore();
     if (isLogin()) {

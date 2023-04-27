@@ -5,16 +5,13 @@
       <a-result
         class="result"
         status="error"
-        :title="$t('error.result.title')"
-        :subtitle="$t('error.result.subTitle')"
+        :title="'404'"
+        :subtitle="'你访问的页面不存在~'"
       >
         <template #extra>
           <a-space class="operation-wrap" :size="16">
-            <a-button key="again" type="secondary">
-              {{ $t('error.result.goBack') }}
-            </a-button>
-            <a-button key="back" type="primary">
-              {{ $t('error.result.retry') }}
+            <a-button key="again" type="secondary" @click="$router.push({ path: 'workplace' })">
+              {{ '回到首页' }}
             </a-button>
           </a-space>
         </template>
@@ -22,18 +19,14 @@
 
       <div class="details-wrapper">
         <a-typography-title :heading="6" style="margin-top: 0">
-          {{ $t('error.detailTitle') }}
+          {{  '错误详情' }}
         </a-typography-title>
         <a-typography-paragraph style="margin-bottom: 0">
           <ol>
             <li>
-              {{ $t('error.detailLine.record') }}
-              <a-link>
-                <IconLink />
-                {{ $t('error.detailLine.record.link') }}
-              </a-link>
+              {{ '当前访问的地址不存在' }}
             </li>
-            <li>{{ $t('error.detailLine.auth') }}</li>
+            <li>{{ '或您的账户不具有此操作的权限' }}</li>
           </ol>
         </a-typography-paragraph>
       </div>

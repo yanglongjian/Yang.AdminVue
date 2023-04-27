@@ -13,6 +13,15 @@ export const REDIRECT_MAIN: AppRouteRecordRaw = {
   },
   children: [
     {
+      path: 'forbidden',
+      name: 'forbidden',
+      component: () => import('@/views/redirect/403.vue'),
+      meta: {
+        requiresAuth: true,
+        hideInMenu: true,
+      },
+    },
+    {
       path: '/redirect/:path',
       name: REDIRECT_ROUTE_NAME,
       component: () => import('@/views/redirect/index.vue'),

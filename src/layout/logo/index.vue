@@ -23,7 +23,7 @@ const toggleDrawerMenu = inject("toggleDrawerMenu") as () => void;
   margin: 12px 8px;
 
   .title{    
-     margin: 0 5px;
+     margin: 0 10px;
      font-size: '18px';
      line-height:32px;
  }

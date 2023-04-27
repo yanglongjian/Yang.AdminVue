@@ -159,7 +159,7 @@
       :title="state.isUpdate ? '编辑' : '新建'"
       :footer="false"
       :align-center="false"
-      draggable
+      
       :mask-closable="false"
       @cancel="state.visible = false"
     >
@@ -194,7 +194,7 @@
       :title="'重置密码'"
       :footer="false"
       :align-center="false"
-      draggable
+      
       :mask-closable="false"
       @cancel="state.pwdVisible = false"
     >
@@ -536,7 +536,6 @@ const pwdRules = ref<any>({
 
 const handlePwdOpen = (record: any) => {
   nextTick(() => {
-    debugger;
     state.pwdVisible = true;
     pwdFormRef.value.setData({
       userId: record.id,
@@ -572,7 +571,6 @@ const handleRoleOpen = (record: any) => {
 };
 
 const handleRoleSubmit = async () => {
-  debugger;
   state.loading = true;
   try {
     const { data }: any = await setUserRoles({

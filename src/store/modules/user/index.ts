@@ -12,12 +12,11 @@ import useAppStore from '../app';
 const useUserStore = defineStore('user', {
   state: () => ({
     userInfo: undefined,
-    permissions: undefined,
+    permissions:undefined,
   }),
   actions: {
     // Set user's information
     setInfo(data: any) {
-      //this.$patch(partial);
       this.$patch({
         userInfo: data,
         permissions: data.permissionList
