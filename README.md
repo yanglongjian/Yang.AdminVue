@@ -1,22 +1,19 @@
 <div align="center">
-  <h1>Arco Design Pro</h1>
+  <h1>Yang.AdminVue</h1>
 </div>
 
 <div align="center">
 
 An out-of-the-box solution to quickly build enterprise-level applications based on [Arco Design](https://arco.design/).
 
+Integrate CMS, Wechat and Mall
+
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/arco-design/arco-design-pro/blob/main/LICENSE)
 
 </div>
 
-<div align="center">
 
-English | [简体中文](./README.zh-CN.md)
-
-</div>
-
-![f769c408-adf4-4a85-b4a5-cc0d7e7f29ef](https://user-images.githubusercontent.com/19399269/148364725-b7a36383-04a9-4d67-87a4-91e970d0d083.gif)
+![f769c408-adf4-4a85-b4a5-cc0d7e7f29ef](https://raw.githubusercontent.com/yanglongjian/Yang.AdminVue/main/config/screenshot.png)
 
 ## ✨ Features
 
@@ -34,21 +31,17 @@ English | [简体中文](./README.zh-CN.md)
 ## 🌈 Usage
 
 ```bash
-$ npm i arco-cli@latest pnpm -g
+$ yarn install
 
-$ arco init my-project
+$ yarn dev
+
+$ yarn build
 ```
 
 ## 🔗 Link
 
 - [Arco Design Pro](https://pro.arco.design)
 - [Preview](https://vue-pro.arco.design)
-
-## 💎 Changelog
-
-- [Chinese Version](https://github.com/arco-design/arco-design-pro-vue/blob/main/docs/changelog.zh-CN.md)
-
-- [English Version](https://github.com/arco-design/arco-design-pro-vue/blob/main/docs/changelog.md)
 
 ## LICENSE
 
