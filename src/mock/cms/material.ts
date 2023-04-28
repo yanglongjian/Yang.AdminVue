@@ -84,7 +84,7 @@ let data = [
     id: "008",
     name: "数据表格",
     extendName: "xls",
-    src: null,
+    src: 'https://docs.qq.com/sheet/DQWJweHVmQUtacUFu?tab=BB08J2',
     updateTime: "2022-01-20 18:30:00",
     isDir: false,
     filePath: "/"
@@ -327,8 +327,26 @@ let data = [
 
 setupMock({
   setup() {
-    Mock.mock(`/api/${module}/read`, () => {
-      return successResponseWrap(data);
+    Mock.mock(`/api/${module}/read`, (params: any) => {
+      const { fileType } = JSON.parse(params.body);
+      if (fileType == 0) {
+        return successResponseWrap(data);
+      } else {
+        const res: any[] = []
+        const fileMap: { [k: string]: string[] } = {
+          1: ["jpg", "png", "jpeg"],
+          2: ["text", "doc","docx", "xls","xlsx","ppt","pptx"],
+          3: ["mp4"],
+          4: ["mp3"],
+          5: ["zip", "rar", "css", "js", "html"]
+        }
+        const arr = fileMap[fileType] || []
+        arr.forEach(item => {
+          const newdata = data.filter(i => i.extendName === item)
+          res.push(...newdata)
+        })
+        return successResponseWrap(res);
+      }
     });
     Mock.mock(`/api/${module}/create`, (params: any) => {
       return successResponseWrap('添加成功');

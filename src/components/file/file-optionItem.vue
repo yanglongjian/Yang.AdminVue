@@ -1,5 +1,5 @@
 <template>
-  <li class="gi-option-item" :class="{ more: more, active: active }" @click="handleClick">
+  <li class="file-option-item" :class="{ more: more, active: active }" @click="handleClick">
     <section class="wrap">
       <span class="icon-wrapper">
         <slot name="icon">
@@ -10,7 +10,7 @@
         ><span>{{ label }}</span></slot
       >
     </section>
-    <a-icon-right v-if="more" />
+    <icon-right v-if="more" />
   </li>
 </template>
 
@@ -44,7 +44,7 @@ const handleClick = () => {
 </script>
 
 <style lang="less" scoped>
-.gi-option-item {
+.file-option-item {
   position: relative;
   display: flex;
   align-items: center;
@@ -58,8 +58,7 @@ const handleClick = () => {
 
   .wrap {
     display: flex;
-    align-items: center;
-
+    //align-items: center;
     .icon-wrapper {
       display: flex;
       align-items: center;

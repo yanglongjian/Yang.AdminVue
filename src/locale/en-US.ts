@@ -1,3 +1,24 @@
 export default {
-  'menu.dashboard': 'Dashboard',
-};
+  "navbar.action.locale": "Switch to English",
+  "仪表盘": "Dashboard",
+  "工作台": "Workspace",
+  "系统管理": "System Management",
+  '用户信息':'User information',
+  "账号管理": "Account Management",
+  "角色管理": "Role Management",
+  "模块管理": "Module Management",
+  "Arco Design": "Arco Design",
+
+  "CMS": "CMS",
+  "Bnaner管理": "Banner Management",
+  "栏目管理": "Column Management",
+  "文章管理": "Article Management",
+  "视频管理": "Video Management",
+  "标签管理": "Tag Management",
+  "素材管理": "Material Management",
+  "采集管理": "Collection Management",
+  "友情链接": "Friendship Link",
+  "广告管理": "Advertisement Management",
+  "系统公告": "System Announcement",
+  "站点配置": "Site Configuration",
+}

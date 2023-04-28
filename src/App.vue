@@ -24,11 +24,3 @@
     }
   });
 </script>
-<style>
-@import "assets/style/iconfont.css";
-
-.iconfont {
-  font-size: unset;
-  fill: currentcolor;
-}
-</style>

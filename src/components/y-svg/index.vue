@@ -8,8 +8,8 @@
     </svg>
   </template>
   
-  <script setup lang="ts">
-  import { computed } from "vue"
+  <script lang="ts" setup >
+  import { computed } from "vue";
   
   const props = defineProps({
     name: {
@@ -24,7 +24,7 @@
       type: [Number, String],
       default: 20
     }
-  })
+  });
   
   //判断传入的值，是否带有单位，如果没有，就默认用px单位
   const getUnitValue = (value: string | number): string | number => {

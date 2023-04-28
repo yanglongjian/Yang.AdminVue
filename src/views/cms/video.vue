@@ -45,7 +45,7 @@
           </a-row>
 
           <!--视频列表-->
-          <a-spin dot  :loading="state.loading">
+          <a-spin :loading="state.loading" style="display: flex;">     
             <a-row class="list-row" :gutter="24">
               <a-col
                 v-for="item in state.renderData"
@@ -104,7 +104,8 @@
                 </a-card>
               </a-col>
             </a-row>
-          </a-spin>
+            <a-empty v-show="!state.renderData.length"></a-empty>
+         </a-spin>
           <!--分页-->
           <a-row>
             <div style="margin: 10px auto">

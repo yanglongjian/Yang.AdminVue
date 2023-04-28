@@ -308,7 +308,6 @@ const getBreadcrumb = (): void => {
     .map((item) => {
       return item.meta.locale;
     });
-  //console.log(breadList);
 };
 getBreadcrumb();
 watch(

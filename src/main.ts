@@ -12,6 +12,7 @@ import '@arco-design/web-vue/dist/arco.css';
 import '@/assets/style/global.less';
 import '@/api/interceptor';
 
+import "virtual:svg-icons-register"
 const app = createApp(App);
 
 app.use(ArcoVue, {});
@@ -22,5 +23,6 @@ app.use(store);
 app.use(i18n);
 app.use(globalComponents);
 app.use(directive);
+
 
 app.mount('#app');

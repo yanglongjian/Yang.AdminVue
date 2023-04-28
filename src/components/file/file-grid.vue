@@ -8,10 +8,11 @@
       animation-name="slide-dynamic-origin"
       auto-fit-transform-origin
       position="bl"
-      update-at-scroll>
+      update-at-scroll
+    >
       <li class="file-grid-item" @click.stop="handleClickFile(item)">
-        <div class="file-image">
-          <file-img :data="item"></file-img>
+        <div class="file-image"> 
+            <file-img :data="item"></file-img>
         </div>
         <div class="file-name">{{ getFileName(item) }}</div>
 
@@ -20,65 +21,69 @@
           v-show="props.isBatchMode"
           class="check-mode"
           :class="{ checked: props.selectedFileIdList.includes(item.id) }"
-          @click.stop="handleCheckFile(item)">
+          @click.stop="handleCheckFile(item)"
+        >
           <a-checkbox
             class="checkbox"
             :model-value="props.selectedFileIdList.includes(item.id)"
-            @change="handleCheckFile(item)"></a-checkbox>
+            @change="handleCheckFile(item)"
+          ></a-checkbox>
         </section>
       </li>
       <template #content>
-        <file-right-menu :file-info="item" @click="handleRightMenuItemClick($event, item)"></file-right-menu>
+        <file-right-menu
+          :file-info="item"
+          @click="handleRightMenuItemClick($event, item)"
+        ></file-right-menu>
       </template>
     </a-trigger>
   </ul>
 </template>
 
 <script setup lang="ts">
-import type { PropType } from "vue"
-import FileImg from "./file-img.vue"
-import FileRightMenu from "./file-right-menu.vue"
-//import type { ApiFileItem } from "@/api/file"
+import type { PropType } from "vue";
+import FileImg from "./file-img.vue";
+import FileRightMenu from "./file-right-menu.vue";
 
 const props = defineProps({
   // 文件数据
   data: {
     type: Array as PropType<any[]>,
-    default: () => []
+    default: () => [],
   },
   // 批量模式下选中的文件id数组
   selectedFileIdList: {
     type: Array as PropType<string[]>,
-    default: () => []
+    default: () => [],
   },
   // 是否是批量模式
   isBatchMode: {
     type: Boolean as PropType<boolean>,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
-const emit = defineEmits(["click", "check", "right-menu-click"])
+const emit = defineEmits(["click", "check", "right-menu-click"]);
 
 // 文件名称带后缀
 const getFileName = (item: any) => {
-  return `${item.name}${item.extendName ? `.${item.extendName}` : ""}`
-}
+  return `${item.name}${item.extendName ? `.${item.extendName}` : ""}`;
+};
 
 // 点击事件
 const handleClickFile = (item: any) => {
-  emit("click", item)
-}
+  emit("click", item);
+};
 
 // 选中事件
 const handleCheckFile = (item: any) => {
-  emit("check", item)
-}
+  emit("check", item);
+};
 
 // 右键菜单点击事件
 const handleRightMenuItemClick = (mode: string, item: any) => {
-  emit("right-menu-click", mode, item)
-}
+  emit("right-menu-click", mode, item);
+};
 </script>
 
 <style lang="less" scoped>

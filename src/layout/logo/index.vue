@@ -1,7 +1,7 @@
 <template>
   <div class="logo">
       <img
-        :src="'//p3-armor.byteimg.com/tos-cn-i-49unhts6dw/dfdba5317c0c20ce20e64fac803d52bc.svg~tplv-49unhts6dw-image.image'"
+        :src="logo"
       />
       <a-typography-title class="title" :style="{color:'#fff'}" :heading="5">
         Arco Design
@@ -12,6 +12,7 @@
 <script lang="ts" setup>
 import { inject } from "vue";
 import { useAppStore } from "@/store";
+import logo from '@/assets/logo.png';
 const appStore = useAppStore();
 const toggleDrawerMenu = inject("toggleDrawerMenu") as () => void;
 </script>
